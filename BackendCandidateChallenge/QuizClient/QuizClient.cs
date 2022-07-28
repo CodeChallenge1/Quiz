@@ -23,6 +23,7 @@ public class QuizClient
 
     public async Task<Response<IEnumerable<Quiz>>> GetQuizzesAsync(CancellationToken cancellationToken)
     {
+        //TODO Consider extracting request creation to a separate method to avoid repeating code (check all methods in this class)
         var request = new HttpRequestMessage(HttpMethod.Get, new Uri(_quizServiceUri, "/api/quizzes"));
         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         var response = await _httpClient.SendAsync(request, cancellationToken);

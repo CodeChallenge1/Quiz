@@ -13,6 +13,7 @@ using QuizService.Service;
 
 namespace QuizService;
 
+//TODO Consider merging Startup.cs and Program.cs into one Program.cs class
 public class Startup
 {
     public Startup(IConfiguration configuration)

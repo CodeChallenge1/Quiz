@@ -12,6 +12,9 @@ namespace QuizService.Controllers;
 [Route("api/quizzes")]
 public class QuizController : Controller
 {
+    //TODO Remove Data access logic from controller methods bellow (e.g. move into Repository)
+    //TODO Remove business logic from controller methods bellow (e.g. move into Service)
+    //TODO Consider making controller methods async
     private readonly IDbConnection _connection;
     private readonly IQuizzesService _quizesService;
     public QuizController(IDbConnection connection, IQuizzesService quizesService)

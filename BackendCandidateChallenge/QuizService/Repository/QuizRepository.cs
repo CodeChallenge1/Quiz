@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace QuizService.Repository
 {
-    // TODO: Ideally this file would go to separate data access project (e.g. Quiz.Database or Quiz.DAL)
+    // TODO Ideally this file would go to separate data access project (e.g. Quiz.Database or Quiz.DAL)
+    // TODO Consider not using plain sql (e.g. use EF core)
     public class QuizRepository : IQuizRepository
     {
         private readonly IDbConnection _connection;
@@ -37,6 +38,7 @@ namespace QuizService.Repository
 
         public async Task<Dictionary<int, IList<Answer>>> GetAnswersAsync(int quizId)
         {
+            //TODO Consider using EF core to simplify this query
             const string answersSql = "SELECT a.Id, a.Text, a.QuestionId FROM Answer a INNER JOIN Question q ON a.QuestionId = q.Id WHERE q.QuizId = @QuizId;";
             return (await _connection.QueryAsync<Answer>(answersSql, new { QuizId = quizId }))
                 .Aggregate(new Dictionary<int, IList<Answer>>(), (dict, answer) => {

@@ -1,13 +1,14 @@
 ﻿using QuizService.Model;
 using QuizService.Model.Domain;
 using QuizService.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace QuizService.Service
 {
-    // TODO: Ideally this file would go to separate project for business logic (e.g. Quiz.Service or Quiz.Core)
+    // TODO Ideally this file would go to separate project for business logic (e.g. Quiz.Service or Quiz.Core)
     public class QuizzesService : IQuizzesService
     {
         private readonly IQuizRepository _quizRepository;
@@ -32,6 +33,7 @@ namespace QuizService.Service
 
             var questions = await _quizRepository.GetQuestionsAsync(id);
             var answers = await _quizRepository.GetAnswersAsync(id);
+            //TODO Move bellow mapping to separate method or mapper
             return new QuizResponseModel
             {
                 Id = quiz.Id,
@@ -59,9 +61,10 @@ namespace QuizService.Service
 
         public async Task<int> TakeQuiz(int id, TakeQuizModel model)
         {
+            //TODO Add try catch here
             var quiz = await GetQuizAsync(id);
-            return 
-                model.Answers.Where(answer => 
+            return
+                model.Answers.Where(answer =>
                 quiz.Questions.Any(q => q.Id == answer.QuestionId &&
                 q.Answers.First(a => a.Id == q.CorrectAnswerId).Text == answer.Answer))
                 .Count();
